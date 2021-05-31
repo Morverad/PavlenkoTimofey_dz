@@ -1,0 +1,66 @@
+operators = {"+", "-", "/", "*", "^", "sqrt", "!"}
+
+def is_number(string):
+    return (string.replace(".","").replace("-", "").isdigit())
+
+def is_operator(string):
+    tmp = string.lower().strip()
+    return tmp in operators
+    
+def is_natural_or_zero(x):
+    return float(x) >= 0 and float(x) % 1 == 0
+    
+def calc_factorial(x):
+    fact = 1
+    for i in range(1, int(x)+1):
+        fact = fact * i
+    return fact
+    
+def get_operand(operand_number):
+    tmp = input("Введите число: " + str(operand_number) + ": ")
+    while not is_number(tmp):
+        print("Неверное число")
+        tmp = input("Введите число: " + str(operand_number) + ": ")  
+    return tmp
+    
+def get_operator():
+    tmp = input("Введите оператор (доступны +,-,/,*,^,sqrt,!): ")    
+    while not is_operator(tmp):
+        print("Неверный оператор")
+        tmp = input("Введите оператор (доступны +,-,/,*,^,sqrt,!): ")
+    return tmp
+
+while True:
+    x = get_operand(1)
+    
+    op = get_operator()
+    
+    if op == "+":
+        y = get_operand(2)
+        print(x, " + ", y, " = ", float(x)+float(y))
+        
+    elif op == "-":
+        y = get_operand(2)
+        print(x, " - ", y, " = ", float(x)-float(y))
+        
+    elif op == "*":
+        y = get_operand(2)
+        print(x, " * ", y, " = ", float(x)*float(y))
+        
+    elif op == "/":
+        y = get_operand(2)
+        print(x, " / ", y, " = ", float(x)/float(y))
+        
+    elif op == "^":
+        n = get_operand(2)
+        print(x, "^", n, " = ", float(x)**float(n))
+        
+    elif op == "sqrt":
+        print("sqrt(", x, ") = ", math.sqrt(float(x)))
+        
+    elif op == ("!"):
+        if is_natural_or_zero(x):
+            print(x, "! = ", calc_factorial(x))
+        else: print(x, "Не натуральное или 0!")
+
+    print("------------------------------")
