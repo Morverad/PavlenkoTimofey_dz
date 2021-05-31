@@ -1,0 +1,10 @@
+while True:
+    str = input("Напишите: ")
+    
+    tmp = str.replace(" ", "")
+    rev_tmp = tmp[::-1]
+    
+    if tmp == rev_tmp:
+        print("Это палиндром")
+    else:
+        print("Это не палиндром")
