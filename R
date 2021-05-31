@@ -1,0 +1,35 @@
+setwd("C:/Users/timap/Desktop/Программирование")
+Games <- read.csv("Games.csv", head = TRUE, sep = ",")
+
+#убрать пустые значения из таблицы
+Games[Games==''] <- NA
+options(max.print=1000000)
+Games1 <- na.omit(Games)
+
+class(Games1$Critic_Score)
+Games1$Critic_Score <- as.numeric(as.character(Games1$Critic_Score))
+class(Games1$EU_Sales)
+A <- Games1$EU_Sales
+B <- Games1$Critic_Score
+
+#гипотеза 1. Количество продаж в Европе связано с оценками критиков
+install.packages("psych")
+library(psych)
+#описательные статистики
+describe(A)
+describe(B)
+#мода
+density(A)$x[which.max(density(A)$y)]
+density(B)$x[which.max(density(B)$y)]
+
+#визуализация
+boxplot(A)
+boxplot(B)
+
+install.packages("ggplot2")
+#простая проверка на нормальность через shapiro.test ограничена 5000 наблюдений, предположил по sd и выбросам на boxplot
+cor.test(A, B, method="spearman")
+ggplot(Games1, aes(x=B, y=A))+ geom_point(size=0.5, position="jitter", alpha=0.1)
+
+#гипотеза 2. Больше всего продаж Ролевых игр в Японии
+.......
